@@ -1,17 +1,31 @@
-import { getRandomArrayElement, getRandomDate, getRandomId, getRandomPrice } from '../utils';
-import { getRandomDestination } from './destination';
-import { getRandomOffers } from './offer';
-import { POINT_TYPES } from './const';
+import { getRandomItemFromItems, getRandomPrice, createIDgenerator } from '../utils';
+import { destinations, generateDestinations } from './destination';
+import { getRandomOffersIdsByType } from './offer';
+import { fromToDates, pointTypes } from '../const';
 
-const getRandomTripPoint = () => ({
-  basePrice: getRandomPrice(),
-  dateFrom: getRandomDate(),
-  dateTo: getRandomDate(),
-  destination: getRandomDestination(),
-  id: getRandomId(),
-  offers: getRandomOffers(),
-  type: getRandomArrayElement(POINT_TYPES)
-});
+const tripPoints = [];
 
+const generateTripPointId = createIDgenerator();
+const generateTripPoints = (n) => {
+  for (let i = 0; i < n; i++) {
+    const dates = getRandomItemFromItems(fromToDates);
+    const type = getRandomItemFromItems(pointTypes);
+    const tripPoint = {
+      basePrice: getRandomPrice(),
+      dateFrom: dates.dateFrom,
+      dateTo: dates.dateTo,
+      destination: getRandomItemFromItems(destinations).id,
+      id: generateTripPointId(),
+      offersIDs: getRandomOffersIdsByType(type),
+      type
+    };
+    tripPoints.push(tripPoint);
+  }
+};
 
-export { getRandomTripPoint };
+const mockInit = (numberOfTripPoints, numberOfDestinations) => {
+  generateDestinations(numberOfDestinations);
+  generateTripPoints(numberOfTripPoints);
+};
+
+export {mockInit, tripPoints};
