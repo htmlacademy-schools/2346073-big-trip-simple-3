@@ -1,5 +1,25 @@
 import {createElement} from '../render.js';
 
+export default class FilterView {
+  #element = null;
+
+  get template() {
+    return createFilterTemplate();
+  }
+
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
+    }
+
+    return this.#element;
+  }
+
+  removeElement() {
+    this.element = null;
+  }
+}
+
 function createFilterTemplate() {
   return (
     `<form class="trip-filters" action="#" method="get">
@@ -14,22 +34,4 @@ function createFilterTemplate() {
     <button class="visually-hidden" type="submit">Accept filter</button>
   </form>`
   );
-}
-
-export default class FilterView {
-  getTemplate() {
-    return createFilterTemplate();
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
-  }
 }

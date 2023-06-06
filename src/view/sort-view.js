@@ -1,5 +1,24 @@
 import {createElement} from '../render.js';
 
+export default class SortView {
+  #element = null;
+
+  get template() {
+    return createSortTemplate;
+  }
+
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
+    }
+    return this.#element;
+  }
+
+  removeElement() {
+    this.element = null;
+  }
+}
+
 function createSortTemplate() {
   return (
     `<form class="trip-events__trip-sort  trip-sort" action="#" method="get">
@@ -25,22 +44,4 @@ function createSortTemplate() {
     </div>
   </form>`
   );
-}
-
-export default class SortView {
-  getTemplate() {
-    return createSortTemplate();
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
-  }
 }

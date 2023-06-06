@@ -1,7 +1,11 @@
-import {getRandomPoint} from '../mock/point.js';
+export default class TripPointModel {
+  #tripPoints = null;
 
-export default class PointsModel {
-  points = Array.from({length: 3}, getRandomPoint);
+  constructor (tripPoints) {
+    this.#tripPoints = tripPoints;
+  }
 
-  getTasks = () => this.points;
+  get tripPoints() {
+    return this.#tripPoints;
+  }
 }
