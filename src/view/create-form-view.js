@@ -1,30 +1,18 @@
 import {destinations} from '../mock/destination.js';
-import {createElement} from '../render.js';
+import AbstractView from '../framework/view/abstract-view.js';
 import {convertToFormDate, capitalizeType, getItemFromItemsById} from '../utils.js';
 import {getOffersByType} from '../const.js';
 
-export default class CreateFormView {
-  #element = null;
+export default class CreateFormView extends AbstractView {
   #tripPoint = null;
 
   constructor(tripPoint) {
+    super();
     this.#tripPoint = tripPoint;
   }
 
   get template() {
     return createFormTemplate(this.#tripPoint);
-  }
-
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
-  }
-
-  removeElement() {
-    this.element = null;
   }
 }
 
