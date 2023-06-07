@@ -1,2 +1,2 @@
 Папка для скриптов.
-module6-task1
+module6-task2
