@@ -1,2 +1,2 @@
 Папка для скриптов.
-module8-task1
+module8-task2
